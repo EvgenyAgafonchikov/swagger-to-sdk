@@ -3,9 +3,12 @@ import logging
 from pathlib import Path
 import tempfile
 
+print("In Py")
+
 from swaggertosdk.SwaggerToSdkNewCLI import (
     build_project,
 )
+print(">>>0")
 from swaggertosdk.SwaggerToSdkCore import (
     CONFIG_FILE,
     read_config,
@@ -14,9 +17,9 @@ from swaggertosdk.SwaggerToSdkCore import (
     get_input_paths,
     get_repo_tag_meta,
 )
-
+print(">>>1")
 _LOGGER = logging.getLogger(__name__)
-
+print(">>>2")
 
 def generate(config_path, sdk_folder, project_pattern, readme, restapi_git_folder, autorest_bin=None):
 
@@ -86,7 +89,7 @@ def generate(config_path, sdk_folder, project_pattern, readme, restapi_git_folde
 
 def generate_main():
     """Main method"""
-
+    print(">>>3")
     parser = argparse.ArgumentParser(
         description='Build SDK using Autorest, offline version.',
         formatter_class=argparse.RawTextHelpFormatter)
@@ -115,19 +118,23 @@ def generate_main():
     parser.add_argument('--sdk-folder', '-s',
                         dest='sdk_folder', default='.',
                         help='A Python SDK folder. [default: %(default)s]')
-
+    print(">>>Args end")
     args = parser.parse_args()
+    print(">>>Args parsed")
     main_logger = logging.getLogger()
+    print(">>>Logger got")
     if args.verbose or args.debug:
         logging.basicConfig()
         main_logger.setLevel(logging.DEBUG if args.debug else logging.INFO)
-
+    print(">>>Before generate")
     generate(args.config_path,
              args.sdk_folder,
              args.project,
              args.readme,
              args.restapi_git_folder,
              args.autorest_bin)
+    print(">>>After generate")
 
 if __name__ == "__main__":
+    print(">>>In main")
     generate_main()
